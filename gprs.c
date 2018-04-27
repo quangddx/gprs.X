@@ -16,7 +16,7 @@ void GprsBufClean(void){
     GprsLen = 0;
 }
 void gprs_task(void){
-    char c;
+    unsigned char c;
     if(!UART2_ReceiveBufferIsEmpty()){
         c=UART2_Read();
         cout(c);
