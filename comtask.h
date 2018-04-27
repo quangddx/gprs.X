@@ -34,6 +34,7 @@
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include "hardware.h"
 #include "string.h"
+#include "gprs.h"
 #include "mcc_generated_files/mcc.h"
 
 // TODO Insert appropriate #include <>

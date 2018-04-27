@@ -3,7 +3,7 @@
 void loop(void){
     //__delay_ms(1000);
     hardware_init();
-    sal_init();
+    //sal_init();
     char st[200];
     sprintf(st," test........... \r\n");  
     com_out(st);

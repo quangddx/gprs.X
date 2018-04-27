@@ -52,7 +52,7 @@ void com_task(void){
                     break;
 
                 case COM_TEST_GPRS: 
-                    UART2_WriteBuffer(ComBuf,ComLen);UART2_Write(0X0D);UART2_Write(0X0A);
+                    sim_out(ComBuf);UART2_Write(0X0D);UART2_Write(0X0A);
                     break;
                 case COM_SYSTEM: 
                     break;

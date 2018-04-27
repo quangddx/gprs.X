@@ -72,6 +72,7 @@ extern "C" {
     // TODO If C++ is being used, regular C code needs function names to have C 
     // linkage so the functions can be used by the c code. 
     void gprs_task(void);
+    void sim_out(char *st);
     void send_sms(char *number, char *data);
 #ifdef	__cplusplus
 }

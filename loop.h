@@ -39,7 +39,7 @@
 #include "hardware.h"
 #include "comtask.h"
 #include "gprs.h"
-#include "../sensor/salinity.h"
+//#include "../sensor/salinity.h"
 // TODO Insert appropriate #include <>
 
 // TODO Insert C++ class definitions if appropriate
