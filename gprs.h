@@ -69,8 +69,25 @@
 extern "C" {
 #endif /* __cplusplus */
 
+typedef enum
+{
+	/* Application's state machine's initial state. */
+    GPRS_OFF=0,
+    GPRS_ON,
+    GPRS_INIT,
+    GPRS_3G,
+    GPRS_GET_IP,
+    //GPRS_CPIN,
+    //GPRS_CMGF,
+    GPRS_GET_SERVICE,
+    GPRS_CONNECT_SERVER,
+    GPRS_SERVICE,        
+	/* TODO: Define states used by the application state machine. */
+
+} GPRS_STATES;
     // TODO If C++ is being used, regular C code needs function names to have C 
     // linkage so the functions can be used by the c code. 
+    void gprs_init();
     void gprs_task(void);
     void sim_out(char *st);
     void send_sms(char *number, char *data);

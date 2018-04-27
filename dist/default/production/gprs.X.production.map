@@ -69,7 +69,7 @@ c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.
 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(memcpy.DA_eo)
                               build/default/production/loop.o (_memcpy)
 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(strcmp.DA_eo)
-                              build/default/production/comtask.o (_strcmp)
+                              build/default/production/gprs.o (_strcmp)
 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(strlen.DA_eo)
                               build/default/production/gprs.o (_strlen)
 
@@ -81,12 +81,12 @@ Program Memory  [Origin = 0x200, Length = 0x155f8]
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200               0x144           0x1e6  (486)
-.const                       0x344                0xf4           0x16e  (366)
-.text                        0x438               0xa54           0xf7e  (3966)
-.dinit                       0xe8c                0x46            0x69  (105)
-.text                        0xed2                0x78            0xb4  (180)
+.const                       0x344               0x1cc           0x2b2  (690)
+.text                        0x510               0xbf8          0x11f4  (4596)
+.dinit                      0x1108                0x50            0x78  (120)
+.text                       0x1158                0xc4           0x126  (294)
 
-                 Total program memory used (bytes):         0x13ef  (5103) 3%
+                 Total program memory used (bytes):         0x182a  (6186) 4%
 
 
 Ivt Memory  [Origin = 0x4, Length = 0xfc]
@@ -111,11 +111,13 @@ Data Memory  [Origin = 0x800, Length = 0x2000]
 section                    address      alignment gaps    total length  (dec)
 -------                    -------      --------------    -------------------
 .nbss                        0x800                   0             0xe  (14)
-.ndata                       0x80e                   0             0x2  (2)
-.nbss                        0x810                   0             0x4  (4)
-.bss                         0x814                   0           0x294  (660)
+.ndata                       0x80e                   0             0x4  (4)
+.nbss                        0x812                   0             0x4  (4)
+.ndata                       0x816                   0             0x2  (2)
+.nbss                        0x818                   0             0x4  (4)
+.bss                         0x81c                   0           0x2bc  (700)
 
-                 Total data memory used (bytes):          0x2a8  (680) 8%
+                 Total data memory used (bytes):          0x2d8  (728) 8%
 
 
 Dynamic Memory Usage
@@ -123,194 +125,202 @@ Dynamic Memory Usage
 region                     address                      maximum length  (dec)
 ------                     -------                      ---------------------
 heap                             0                                   0  (0)
-stack                        0xaa8                              0x1d58  (7512)
+stack                        0xad8                              0x1d28  (7464)
 
-                 Maximum dynamic memory (bytes):         0x1d58  (7512)
+                 Maximum dynamic memory (bytes):         0x1d28  (7464)
 
 
 External Symbols in Data Memory (by address):
 
                     0x0800                  _DataGprs
                     0x0801                  _GprsLen
-                    0x0802                  _GprsTime
-                    0x0804                  _GprsEvent
-                    0x080a                  _DataReady
-                    0x080b                  _ComLen
-                    0x080c                  _com_event
-                    0x0812                  _time
-                    0x09c0                  _GprsBuf
-                    0x0a24                  _ComBuf
+                    0x0802                  _gTime
+                    0x0804                  _gTick
+                    0x080e                  _GprsEvent
+                    0x0810                  _debug
+                    0x0812                  _DataReady
+                    0x0813                  _ComLen
+                    0x0814                  _com_event
+                    0x081a                  _time
+                    0x09c8                  _GprsBuf
+                    0x0a2c                  _gCommand
+                    0x0a54                  _ComBuf
 
 External Symbols in Data Memory (by name):
 
-                    0x0a24                  _ComBuf
-                    0x080b                  _ComLen
+                    0x0a54                  _ComBuf
+                    0x0813                  _ComLen
                     0x0800                  _DataGprs
-                    0x080a                  _DataReady
-                    0x09c0                  _GprsBuf
-                    0x0804                  _GprsEvent
+                    0x0812                  _DataReady
+                    0x09c8                  _GprsBuf
+                    0x080e                  _GprsEvent
                     0x0801                  _GprsLen
-                    0x0802                  _GprsTime
-                    0x080c                  _com_event
-                    0x0812                  _time
+                    0x0814                  _com_event
+                    0x0810                  _debug
+                    0x0a2c                  _gCommand
+                    0x0804                  _gTick
+                    0x0802                  _gTime
+                    0x081a                  _time
 
 External Symbols in Program Memory (by address):
 
                   0x000200                  __resetPRI
                   0x00023c                  __psv_init
-                  0x000252                  __data_init
                   0x000252                  __data_init_da
+                  0x000252                  __data_init
                   0x000304                  __DefaultInterrupt
                   0x00030a                  _memcpy
                   0x000318                  _strcmp
                   0x000338                  _strlen
-                  0x000438                  _UART1_Initialize
-                  0x000482                  __U1TXInterrupt
-                  0x0004d8                  __U1RXInterrupt
-                  0x00051e                  __U1ErrInterrupt
-                  0x000534                  _UART1_Read
-                  0x00056a                  _UART1_ReadBuffer
-                  0x00059e                  _UART1_Write
-                  0x0005d4                  _UART1_WriteBuffer
-                  0x000606                  _UART1_TransferStatusGet
-                  0x000642                  _UART1_Peek
-                  0x00066a                  _UART1_ReceiveBufferSizeGet
-                  0x000698                  _UART1_TransmitBufferSizeGet
-                  0x0006c8                  _UART1_ReceiveBufferIsEmpty
-                  0x0006e0                  _UART1_TransmitBufferIsFull
-                  0x0006f8                  _UART1_StatusGet
-                  0x000700                  _UART2_Initialize
-                  0x00074a                  __U2TXInterrupt
-                  0x0007a0                  __U2RXInterrupt
-                  0x0007e6                  __U2ErrInterrupt
-                  0x0007fc                  _UART2_Read
-                  0x000832                  _UART2_ReadBuffer
-                  0x000866                  _UART2_Write
-                  0x00089c                  _UART2_WriteBuffer
-                  0x0008ce                  _UART2_TransferStatusGet
-                  0x00090a                  _UART2_Peek
-                  0x000932                  _UART2_ReceiveBufferSizeGet
-                  0x000960                  _UART2_TransmitBufferSizeGet
-                  0x000990                  _UART2_ReceiveBufferIsEmpty
-                  0x0009a8                  _UART2_TransmitBufferIsFull
-                  0x0009c0                  _UART2_StatusGet
-                  0x0009c8                  _cout
-                  0x0009d6                  _com_out
-                  0x0009ea                  _com_task
-                  0x000b0e                  _GprsBufClean
-                  0x000b30                  _gprs_task
-                  0x000b7c                  _sim_out
-                  0x000b8e                  _send_sms
-                  0x000bcc                  _TMR1_Initialize
-                  0x000be2                  __T1Interrupt
-                  0x000c0a                  _TMR1_Period16BitSet
-                  0x000c18                  _TMR1_Period16BitGet
-                  0x000c20                  _TMR1_Counter16BitSet
-                  0x000c2e                  _TMR1_Counter16BitGet
-                  0x000c3c                  _TMR1_Start
-                  0x000c48                  _TMR1_Stop
-                  0x000c52                  _TMR1_GetElapsedThenClear
-                  0x000c68                  _TMR1_SoftwareCounterGet
-                  0x000c70                  _TMR1_SoftwareCounterClear
-                  0x000c78                  _ADC1_Initialize
-                  0x000c9c                  _ADC1_Start
-                  0x000ca4                  _ADC1_Stop
-                  0x000cac                  _ADC1_ConversionResultBufferGet
-                  0x000cde                  _ADC1_ConversionResultGet
-                  0x000ce6                  _ADC1_IsConversionComplete
-                  0x000cfe                  _ADC1_ChannelSelect
-                  0x000d0a                  _ADC1_Tasks
-                  0x000d12                  _PIN_MANAGER_Initialize
-                  0x000d90                  _delayms
-                  0x000da8                  _hardware_init
-                  0x000db0                  _blinkled
-                  0x000dea                  _loop
-                  0x000e40                  _INTERRUPT_Initialize
-                  0x000ee8                  __OscillatorFail
-                  0x000ef0                  __StackError
-                  0x000efa                  __AddressError
-                  0x000f02                  __MathError
-                  0x000f0a                  _SYSTEM_Initialize
-                  0x000f1e                  _OSCILLATOR_Initialize
-                  0x000f42                  _main
+                  0x000510                  _gprs_init
+                  0x00054a                  _GprsBufClean
+                  0x00056c                  _gprs_task
+                  0x0007a6                  _sim_out
+                  0x0007b8                  _send_sms
+                  0x0007de                  _UART1_Initialize
+                  0x000828                  __U1TXInterrupt
+                  0x00087e                  __U1RXInterrupt
+                  0x0008c4                  __U1ErrInterrupt
+                  0x0008da                  _UART1_Read
+                  0x000910                  _UART1_ReadBuffer
+                  0x000944                  _UART1_Write
+                  0x00097a                  _UART1_WriteBuffer
+                  0x0009ac                  _UART1_TransferStatusGet
+                  0x0009e8                  _UART1_Peek
+                  0x000a10                  _UART1_ReceiveBufferSizeGet
+                  0x000a3e                  _UART1_TransmitBufferSizeGet
+                  0x000a6e                  _UART1_ReceiveBufferIsEmpty
+                  0x000a86                  _UART1_TransmitBufferIsFull
+                  0x000a9e                  _UART1_StatusGet
+                  0x000aa6                  _UART2_Initialize
+                  0x000af0                  __U2TXInterrupt
+                  0x000b46                  __U2RXInterrupt
+                  0x000b8c                  __U2ErrInterrupt
+                  0x000ba2                  _UART2_Read
+                  0x000bd8                  _UART2_ReadBuffer
+                  0x000c0c                  _UART2_Write
+                  0x000c42                  _UART2_WriteBuffer
+                  0x000c74                  _UART2_TransferStatusGet
+                  0x000cb0                  _UART2_Peek
+                  0x000cd8                  _UART2_ReceiveBufferSizeGet
+                  0x000d06                  _UART2_TransmitBufferSizeGet
+                  0x000d36                  _UART2_ReceiveBufferIsEmpty
+                  0x000d4e                  _UART2_TransmitBufferIsFull
+                  0x000d66                  _UART2_StatusGet
+                  0x000d6e                  _cout
+                  0x000d7c                  _com_out
+                  0x000d90                  _com_task
+                  0x000e94                  _TMR1_Initialize
+                  0x000eaa                  __T1Interrupt
+                  0x000ed2                  _TMR1_Period16BitSet
+                  0x000ee0                  _TMR1_Period16BitGet
+                  0x000ee8                  _TMR1_Counter16BitSet
+                  0x000ef6                  _TMR1_Counter16BitGet
+                  0x000f04                  _TMR1_Start
+                  0x000f10                  _TMR1_Stop
+                  0x000f1a                  _TMR1_GetElapsedThenClear
+                  0x000f30                  _TMR1_SoftwareCounterGet
+                  0x000f38                  _TMR1_SoftwareCounterClear
+                  0x000f40                  _ADC1_Initialize
+                  0x000f64                  _ADC1_Start
+                  0x000f6c                  _ADC1_Stop
+                  0x000f74                  _ADC1_ConversionResultBufferGet
+                  0x000fa6                  _ADC1_ConversionResultGet
+                  0x000fae                  _ADC1_IsConversionComplete
+                  0x000fc6                  _ADC1_ChannelSelect
+                  0x000fd2                  _ADC1_Tasks
+                  0x000fda                  _PIN_MANAGER_Initialize
+                  0x001058                  _delayms
+                  0x001070                  _hardware_init
+                  0x001076                  _blinkled
+                  0x0010b0                  _loop
+                  0x001158                  _INTERRUPT_Initialize
+                  0x0011ba                  __OscillatorFail
+                  0x0011c2                  __StackError
+                  0x0011cc                  __AddressError
+                  0x0011d4                  __MathError
+                  0x0011dc                  _SYSTEM_Initialize
+                  0x0011f0                  _OSCILLATOR_Initialize
+                  0x001214                  _main
 
 External Symbols in Program Memory (by name):
 
-                  0x000cfe                  _ADC1_ChannelSelect
-                  0x000cac                  _ADC1_ConversionResultBufferGet
-                  0x000cde                  _ADC1_ConversionResultGet
-                  0x000c78                  _ADC1_Initialize
-                  0x000ce6                  _ADC1_IsConversionComplete
-                  0x000c9c                  _ADC1_Start
-                  0x000ca4                  _ADC1_Stop
-                  0x000d0a                  _ADC1_Tasks
-                  0x000b0e                  _GprsBufClean
-                  0x000e40                  _INTERRUPT_Initialize
-                  0x000f1e                  _OSCILLATOR_Initialize
-                  0x000d12                  _PIN_MANAGER_Initialize
-                  0x000f0a                  _SYSTEM_Initialize
-                  0x000c2e                  _TMR1_Counter16BitGet
-                  0x000c20                  _TMR1_Counter16BitSet
-                  0x000c52                  _TMR1_GetElapsedThenClear
-                  0x000bcc                  _TMR1_Initialize
-                  0x000c18                  _TMR1_Period16BitGet
-                  0x000c0a                  _TMR1_Period16BitSet
-                  0x000c70                  _TMR1_SoftwareCounterClear
-                  0x000c68                  _TMR1_SoftwareCounterGet
-                  0x000c3c                  _TMR1_Start
-                  0x000c48                  _TMR1_Stop
-                  0x000438                  _UART1_Initialize
-                  0x000642                  _UART1_Peek
-                  0x000534                  _UART1_Read
-                  0x00056a                  _UART1_ReadBuffer
-                  0x0006c8                  _UART1_ReceiveBufferIsEmpty
-                  0x00066a                  _UART1_ReceiveBufferSizeGet
-                  0x0006f8                  _UART1_StatusGet
-                  0x000606                  _UART1_TransferStatusGet
-                  0x0006e0                  _UART1_TransmitBufferIsFull
-                  0x000698                  _UART1_TransmitBufferSizeGet
-                  0x00059e                  _UART1_Write
-                  0x0005d4                  _UART1_WriteBuffer
-                  0x000700                  _UART2_Initialize
-                  0x00090a                  _UART2_Peek
-                  0x0007fc                  _UART2_Read
-                  0x000832                  _UART2_ReadBuffer
-                  0x000990                  _UART2_ReceiveBufferIsEmpty
-                  0x000932                  _UART2_ReceiveBufferSizeGet
-                  0x0009c0                  _UART2_StatusGet
-                  0x0008ce                  _UART2_TransferStatusGet
-                  0x0009a8                  _UART2_TransmitBufferIsFull
-                  0x000960                  _UART2_TransmitBufferSizeGet
-                  0x000866                  _UART2_Write
-                  0x00089c                  _UART2_WriteBuffer
-                  0x000efa                  __AddressError
+                  0x000fc6                  _ADC1_ChannelSelect
+                  0x000f74                  _ADC1_ConversionResultBufferGet
+                  0x000fa6                  _ADC1_ConversionResultGet
+                  0x000f40                  _ADC1_Initialize
+                  0x000fae                  _ADC1_IsConversionComplete
+                  0x000f64                  _ADC1_Start
+                  0x000f6c                  _ADC1_Stop
+                  0x000fd2                  _ADC1_Tasks
+                  0x00054a                  _GprsBufClean
+                  0x001158                  _INTERRUPT_Initialize
+                  0x0011f0                  _OSCILLATOR_Initialize
+                  0x000fda                  _PIN_MANAGER_Initialize
+                  0x0011dc                  _SYSTEM_Initialize
+                  0x000ef6                  _TMR1_Counter16BitGet
+                  0x000ee8                  _TMR1_Counter16BitSet
+                  0x000f1a                  _TMR1_GetElapsedThenClear
+                  0x000e94                  _TMR1_Initialize
+                  0x000ee0                  _TMR1_Period16BitGet
+                  0x000ed2                  _TMR1_Period16BitSet
+                  0x000f38                  _TMR1_SoftwareCounterClear
+                  0x000f30                  _TMR1_SoftwareCounterGet
+                  0x000f04                  _TMR1_Start
+                  0x000f10                  _TMR1_Stop
+                  0x0007de                  _UART1_Initialize
+                  0x0009e8                  _UART1_Peek
+                  0x0008da                  _UART1_Read
+                  0x000910                  _UART1_ReadBuffer
+                  0x000a6e                  _UART1_ReceiveBufferIsEmpty
+                  0x000a10                  _UART1_ReceiveBufferSizeGet
+                  0x000a9e                  _UART1_StatusGet
+                  0x0009ac                  _UART1_TransferStatusGet
+                  0x000a86                  _UART1_TransmitBufferIsFull
+                  0x000a3e                  _UART1_TransmitBufferSizeGet
+                  0x000944                  _UART1_Write
+                  0x00097a                  _UART1_WriteBuffer
+                  0x000aa6                  _UART2_Initialize
+                  0x000cb0                  _UART2_Peek
+                  0x000ba2                  _UART2_Read
+                  0x000bd8                  _UART2_ReadBuffer
+                  0x000d36                  _UART2_ReceiveBufferIsEmpty
+                  0x000cd8                  _UART2_ReceiveBufferSizeGet
+                  0x000d66                  _UART2_StatusGet
+                  0x000c74                  _UART2_TransferStatusGet
+                  0x000d4e                  _UART2_TransmitBufferIsFull
+                  0x000d06                  _UART2_TransmitBufferSizeGet
+                  0x000c0c                  _UART2_Write
+                  0x000c42                  _UART2_WriteBuffer
+                  0x0011cc                  __AddressError
                   0x000304                  __DefaultInterrupt
-                  0x000f02                  __MathError
-                  0x000ee8                  __OscillatorFail
-                  0x000ef0                  __StackError
-                  0x000be2                  __T1Interrupt
-                  0x00051e                  __U1ErrInterrupt
-                  0x0004d8                  __U1RXInterrupt
-                  0x000482                  __U1TXInterrupt
-                  0x0007e6                  __U2ErrInterrupt
-                  0x0007a0                  __U2RXInterrupt
-                  0x00074a                  __U2TXInterrupt
+                  0x0011d4                  __MathError
+                  0x0011ba                  __OscillatorFail
+                  0x0011c2                  __StackError
+                  0x000eaa                  __T1Interrupt
+                  0x0008c4                  __U1ErrInterrupt
+                  0x00087e                  __U1RXInterrupt
+                  0x000828                  __U1TXInterrupt
+                  0x000b8c                  __U2ErrInterrupt
+                  0x000b46                  __U2RXInterrupt
+                  0x000af0                  __U2TXInterrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_da
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000db0                  _blinkled
-                  0x0009d6                  _com_out
-                  0x0009ea                  _com_task
-                  0x0009c8                  _cout
-                  0x000d90                  _delayms
-                  0x000b30                  _gprs_task
-                  0x000da8                  _hardware_init
-                  0x000dea                  _loop
-                  0x000f42                  _main
+                  0x001076                  _blinkled
+                  0x000d7c                  _com_out
+                  0x000d90                  _com_task
+                  0x000d6e                  _cout
+                  0x001058                  _delayms
+                  0x000510                  _gprs_init
+                  0x00056c                  _gprs_task
+                  0x001070                  _hardware_init
+                  0x0010b0                  _loop
+                  0x001214                  _main
                   0x00030a                  _memcpy
-                  0x000b8e                  _send_sms
-                  0x000b7c                  _sim_out
+                  0x0007b8                  _send_sms
+                  0x0007a6                  _sim_out
                   0x000318                  _strcmp
                   0x000338                  _strlen
 
@@ -411,7 +421,7 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x5982
+.debug_info       0x000000       0x5c47
  *(.debug_info)
  .debug_info      0x000000       0x1061 build/default/production/mcc_generated_files/uart1.o
  .debug_info      0x001061        0x376 build/default/production/mcc_generated_files/traps.o
@@ -421,14 +431,14 @@ __CONFIG1
  .debug_info      0x0027fe        0x882 build/default/production/mcc_generated_files/pin_manager.o
  .debug_info      0x003080       0x100f build/default/production/mcc_generated_files/uart2.o
  .debug_info      0x00408f        0x9fe build/default/production/mcc_generated_files/adc1.o
- .debug_info      0x004a8d        0x2a8 build/default/production/gprs.o
- .debug_info      0x004d35        0x31a build/default/production/hardware.o
- .debug_info      0x00504f        0x132 build/default/production/main.o
- .debug_info      0x005181        0x2d8 build/default/production/loop.o
- .debug_info      0x005459        0x529 build/default/production/comtask.o
+ .debug_info      0x004a8d        0x56d build/default/production/gprs.o
+ .debug_info      0x004ffa        0x31a build/default/production/hardware.o
+ .debug_info      0x005314        0x132 build/default/production/main.o
+ .debug_info      0x005446        0x2d8 build/default/production/loop.o
+ .debug_info      0x00571e        0x529 build/default/production/comtask.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0xd0d
+.debug_abbrev     0x000000        0xd7f
  *(.debug_abbrev)
  .debug_abbrev    0x000000        0x1d5 build/default/production/mcc_generated_files/uart1.o
  .debug_abbrev    0x0001d5        0x10d build/default/production/mcc_generated_files/traps.o
@@ -438,13 +448,13 @@ __CONFIG1
  .debug_abbrev    0x00054e         0xc9 build/default/production/mcc_generated_files/pin_manager.o
  .debug_abbrev    0x000617        0x1d5 build/default/production/mcc_generated_files/uart2.o
  .debug_abbrev    0x0007ec        0x165 build/default/production/mcc_generated_files/adc1.o
- .debug_abbrev    0x000951         0xc0 build/default/production/gprs.o
- .debug_abbrev    0x000a11         0xd4 build/default/production/hardware.o
- .debug_abbrev    0x000ae5         0x36 build/default/production/main.o
- .debug_abbrev    0x000b1b         0xa0 build/default/production/loop.o
- .debug_abbrev    0x000bbb        0x152 build/default/production/comtask.o
+ .debug_abbrev    0x000951        0x132 build/default/production/gprs.o
+ .debug_abbrev    0x000a83         0xd4 build/default/production/hardware.o
+ .debug_abbrev    0x000b57         0x36 build/default/production/main.o
+ .debug_abbrev    0x000b8d         0xa0 build/default/production/loop.o
+ .debug_abbrev    0x000c2d        0x152 build/default/production/comtask.o
 
-.debug_line       0x000000        0xc27
+.debug_line       0x000000        0xc99
  *(.debug_line)
  .debug_line      0x000000        0x1a0 build/default/production/mcc_generated_files/uart1.o
  .debug_line      0x0001a0        0x11c build/default/production/mcc_generated_files/traps.o
@@ -454,13 +464,13 @@ __CONFIG1
  .debug_line      0x0005af         0xc4 build/default/production/mcc_generated_files/pin_manager.o
  .debug_line      0x000673        0x1a0 build/default/production/mcc_generated_files/uart2.o
  .debug_line      0x000813        0x12a build/default/production/mcc_generated_files/adc1.o
- .debug_line      0x00093d         0xa9 build/default/production/gprs.o
- .debug_line      0x0009e6         0xa0 build/default/production/hardware.o
- .debug_line      0x000a86         0x36 build/default/production/main.o
- .debug_line      0x000abc         0x9c build/default/production/loop.o
- .debug_line      0x000b58         0xcf build/default/production/comtask.o
+ .debug_line      0x00093d        0x11f build/default/production/gprs.o
+ .debug_line      0x000a5c         0x9f build/default/production/hardware.o
+ .debug_line      0x000afb         0x36 build/default/production/main.o
+ .debug_line      0x000b31         0x9d build/default/production/loop.o
+ .debug_line      0x000bce         0xcb build/default/production/comtask.o
 
-.debug_frame      0x000000        0x914
+.debug_frame      0x000000        0x936
  *(.debug_frame)
  .debug_frame     0x000000        0x1d6 build/default/production/mcc_generated_files/uart1.o
  .debug_frame     0x0001d6         0x80 build/default/production/mcc_generated_files/traps.o
@@ -470,13 +480,13 @@ __CONFIG1
  .debug_frame     0x00045a         0x30 build/default/production/mcc_generated_files/pin_manager.o
  .debug_frame     0x00048a        0x1d6 build/default/production/mcc_generated_files/uart2.o
  .debug_frame     0x000660         0xf4 build/default/production/mcc_generated_files/adc1.o
- .debug_frame     0x000754         0x84 build/default/production/gprs.o
- .debug_frame     0x0007d8         0x6e build/default/production/hardware.o
- .debug_frame     0x000846         0x30 build/default/production/main.o
- .debug_frame     0x000876         0x36 build/default/production/loop.o
- .debug_frame     0x0008ac         0x68 build/default/production/comtask.o
+ .debug_frame     0x000754         0xa6 build/default/production/gprs.o
+ .debug_frame     0x0007fa         0x6e build/default/production/hardware.o
+ .debug_frame     0x000868         0x30 build/default/production/main.o
+ .debug_frame     0x000898         0x36 build/default/production/loop.o
+ .debug_frame     0x0008ce         0x68 build/default/production/comtask.o
 
-.debug_str        0x000000        0x174
+.debug_str        0x000000        0x186
  *(.debug_str)
  .debug_str       0x000000         0x30 build/default/production/mcc_generated_files/uart1.o
  .debug_str       0x000030          0xc build/default/production/mcc_generated_files/traps.o
@@ -486,10 +496,10 @@ __CONFIG1
  .debug_str       0x0000a2         0x2c build/default/production/mcc_generated_files/pin_manager.o
  .debug_str       0x0000ce         0x30 build/default/production/mcc_generated_files/uart2.o
  .debug_str       0x0000fe         0x2a build/default/production/mcc_generated_files/adc1.o
- .debug_str       0x000128         0x13 build/default/production/gprs.o
- .debug_str       0x00013b          0x9 build/default/production/hardware.o
- .debug_str       0x000144          0x9 build/default/production/loop.o
- .debug_str       0x00014d         0x27 build/default/production/comtask.o
+ .debug_str       0x000128         0x25 build/default/production/gprs.o
+ .debug_str       0x00014d          0x9 build/default/production/hardware.o
+ .debug_str       0x000156          0x9 build/default/production/loop.o
+ .debug_str       0x00015f         0x27 build/default/production/comtask.o
 
 .debug_loc
  *(.debug_loc)
@@ -498,7 +508,7 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000        0x729
+                  0x000000        0x755
  *(.debug_pubnames)
  .debug_pubnames
                   0x000000        0x167 build/default/production/mcc_generated_files/uart1.o
@@ -517,15 +527,15 @@ __CONFIG1
  .debug_pubnames
                   0x0004f6         0xc7 build/default/production/mcc_generated_files/adc1.o
  .debug_pubnames
-                  0x0005bd         0x8a build/default/production/gprs.o
+                  0x0005bd         0xb6 build/default/production/gprs.o
  .debug_pubnames
-                  0x000647         0x46 build/default/production/hardware.o
+                  0x000673         0x46 build/default/production/hardware.o
  .debug_pubnames
-                  0x00068d         0x1b build/default/production/main.o
+                  0x0006b9         0x1b build/default/production/main.o
  .debug_pubnames
-                  0x0006a8         0x1b build/default/production/loop.o
+                  0x0006d4         0x1b build/default/production/loop.o
  .debug_pubnames
-                  0x0006c3         0x66 build/default/production/comtask.o
+                  0x0006ef         0x66 build/default/production/comtask.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -1931,7 +1941,7 @@ LOAD default_isr
 LOAD data_init
 
 .debug_pubtypes
-                  0x000138        0x5fe
+                  0x000138        0x61f
  .debug_pubtypes
                   0x000138        0x113 build/default/production/mcc_generated_files/uart1.o
  .debug_pubtypes
@@ -1949,83 +1959,91 @@ LOAD data_init
  .debug_pubtypes
                   0x00059d         0xae build/default/production/mcc_generated_files/adc1.o
  .debug_pubtypes
-                  0x00064b         0x1e build/default/production/gprs.o
+                  0x00064b         0x3f build/default/production/gprs.o
  .debug_pubtypes
-                  0x000669         0x2f build/default/production/hardware.o
+                  0x00068a         0x2f build/default/production/hardware.o
  .debug_pubtypes
-                  0x000698         0x12 build/default/production/main.o
+                  0x0006b9         0x12 build/default/production/main.o
  .debug_pubtypes
-                  0x0006aa         0x2f build/default/production/loop.o
+                  0x0006cb         0x2f build/default/production/loop.o
  .debug_pubtypes
-                  0x0006d9         0x5d build/default/production/comtask.o
+                  0x0006fa         0x5d build/default/production/comtask.o
 
 __c30_signature
-                  0x000736         0x6c
+                  0x000757         0x6c
  __c30_signature
-                  0x000736          0x6 build/default/production/mcc_generated_files/uart1.o
+                  0x000757          0x6 build/default/production/mcc_generated_files/uart1.o
  __c30_signature
-                  0x00073c          0x6 build/default/production/mcc_generated_files/traps.o
+                  0x00075d          0x6 build/default/production/mcc_generated_files/traps.o
  __c30_signature
-                  0x000742          0x6 build/default/production/mcc_generated_files/tmr1.o
+                  0x000763          0x6 build/default/production/mcc_generated_files/tmr1.o
  __c30_signature
-                  0x000748          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x000769          0x6 build/default/production/mcc_generated_files/interrupt_manager.o
  __c30_signature
-                  0x00074e          0x6 build/default/production/mcc_generated_files/mcc.o
+                  0x00076f          0x6 build/default/production/mcc_generated_files/mcc.o
  __c30_signature
-                  0x000754          0x6 build/default/production/mcc_generated_files/pin_manager.o
+                  0x000775          0x6 build/default/production/mcc_generated_files/pin_manager.o
  __c30_signature
-                  0x00075a          0x6 build/default/production/mcc_generated_files/uart2.o
+                  0x00077b          0x6 build/default/production/mcc_generated_files/uart2.o
  __c30_signature
-                  0x000760          0x6 build/default/production/mcc_generated_files/adc1.o
+                  0x000781          0x6 build/default/production/mcc_generated_files/adc1.o
  __c30_signature
-                  0x000766          0x6 build/default/production/gprs.o
+                  0x000787          0x6 build/default/production/gprs.o
  __c30_signature
-                  0x00076c          0x6 build/default/production/hardware.o
+                  0x00078d          0x6 build/default/production/hardware.o
  __c30_signature
-                  0x000772          0x6 build/default/production/main.o
+                  0x000793          0x6 build/default/production/main.o
  __c30_signature
-                  0x000778          0x6 build/default/production/loop.o
+                  0x000799          0x6 build/default/production/loop.o
  __c30_signature
-                  0x00077e          0x6 build/default/production/comtask.o
+                  0x00079f          0x6 build/default/production/comtask.o
  __c30_signature
-                  0x000784          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extended24.o)
+                  0x0007a5          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(crt0_extended24.o)
  __c30_signature
-                  0x00078a          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(data_init_24.o)
+                  0x0007ab          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-pic30-elf.a(data_init_24.o)
  __c30_signature
-                  0x000790          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(memcpy.DA_eo)
+                  0x0007b1          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(memcpy.DA_eo)
  __c30_signature
-                  0x000796          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(strcmp.DA_eo)
+                  0x0007b7          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(strcmp.DA_eo)
  __c30_signature
-                  0x00079c          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(strlen.DA_eo)
+                  0x0007bd          0x6 c:/program files (x86)/microchip/xc16/v1.31/bin/bin/../../lib\liblega-c-elf.a(strlen.DA_eo)
 
 .nbss               0x0800          0xe
- .nbss              0x0800          0x6 build/default/production/gprs.o
+ .nbss              0x0800          0xa build/default/production/gprs.o
                     0x0800                  _DataGprs
                     0x0801                  _GprsLen
-                    0x0802                  _GprsTime
-                    0x0804                  _GprsEvent
- .nbss              0x0806          0x4 build/default/production/mcc_generated_files/tmr1.o
- .nbss              0x080a          0x4 build/default/production/comtask.o
-                    0x080a                  _DataReady
-                    0x080b                  _ComLen
-                    0x080c                  _com_event
+                    0x0802                  _gTime
+                    0x0804                  _gTick
+ .nbss              0x080a          0x4 build/default/production/mcc_generated_files/tmr1.o
 
-.ndata              0x080e          0x2
- .ndata             0x080e          0x2 build/default/production/mcc_generated_files/traps.o
+.ndata              0x080e          0x4
+ .ndata             0x080e          0x4 build/default/production/gprs.o
+                    0x080e                  _GprsEvent
+                    0x0810                  _debug
 
-.nbss               0x0810          0x4
- .nbss              0x0810          0x2 build/default/production/mcc_generated_files/adc1.o
- .nbss              0x0812          0x2 build/default/production/hardware.o
-                    0x0812                  _time
+.nbss               0x0812          0x4
+ .nbss              0x0812          0x4 build/default/production/comtask.o
+                    0x0812                  _DataReady
+                    0x0813                  _ComLen
+                    0x0814                  _com_event
 
-.bss                0x0814        0x294
- .bss               0x0814         0xd6 build/default/production/mcc_generated_files/uart1.o
- .bss               0x08ea         0xd6 build/default/production/mcc_generated_files/uart2.o
- .bss               0x09c0         0x64 build/default/production/gprs.o
-                    0x09c0                  _GprsBuf
- .bss               0x0a24         0x64 build/default/production/comtask.o
-                    0x0a24                  _ComBuf
- .bss               0x0a88         0x20 build/default/production/mcc_generated_files/traps.o
+.ndata              0x0816          0x2
+ .ndata             0x0816          0x2 build/default/production/mcc_generated_files/traps.o
+
+.nbss               0x0818          0x4
+ .nbss              0x0818          0x2 build/default/production/mcc_generated_files/adc1.o
+ .nbss              0x081a          0x2 build/default/production/hardware.o
+                    0x081a                  _time
+
+.bss                0x081c        0x2bc
+ .bss               0x081c         0xd6 build/default/production/mcc_generated_files/uart1.o
+ .bss               0x08f2         0xd6 build/default/production/mcc_generated_files/uart2.o
+ .bss               0x09c8         0x8c build/default/production/gprs.o
+                    0x09c8                  _GprsBuf
+                    0x0a2c                  _gCommand
+ .bss               0x0a54         0x64 build/default/production/comtask.o
+                    0x0a54                  _ComBuf
+ .bss               0x0ab8         0x20 build/default/production/mcc_generated_files/traps.o
 
 .ivt._U1TXInterrupt
                   0x00002c          0x2
@@ -2097,98 +2115,99 @@ __c30_signature
  .ivt._U2ErrInterrupt
                   0x000098          0x2 build/default/production/mcc_generated_files/uart2.o
 
-.const              0x8344         0xf4 load address 0x000344  
- .const             0x8344         0xa2 build/default/production/comtask.o
- .const             0x83e6         0x3e build/default/production/gprs.o
- .const             0x8424         0x14 build/default/production/loop.o
+.const              0x8344        0x1cc load address 0x000344  
+ .const             0x8344        0x13c build/default/production/gprs.o
+ .const             0x8480         0x7c build/default/production/comtask.o
+ .const             0x84fc         0x14 build/default/production/loop.o
 
-.text             0x000438        0xa54
- .text            0x000438        0x2c8 build/default/production/mcc_generated_files/uart1.o
-                  0x000438                  _UART1_Initialize
-                  0x000482                  __U1TXInterrupt
-                  0x0004d8                  __U1RXInterrupt
-                  0x00051e                  __U1ErrInterrupt
-                  0x000534                  _UART1_Read
-                  0x00056a                  _UART1_ReadBuffer
-                  0x00059e                  _UART1_Write
-                  0x0005d4                  _UART1_WriteBuffer
-                  0x000606                  _UART1_TransferStatusGet
-                  0x000642                  _UART1_Peek
-                  0x00066a                  _UART1_ReceiveBufferSizeGet
-                  0x000698                  _UART1_TransmitBufferSizeGet
-                  0x0006c8                  _UART1_ReceiveBufferIsEmpty
-                  0x0006e0                  _UART1_TransmitBufferIsFull
-                  0x0006f8                  _UART1_StatusGet
- .text            0x000700        0x2c8 build/default/production/mcc_generated_files/uart2.o
-                  0x000700                  _UART2_Initialize
-                  0x00074a                  __U2TXInterrupt
-                  0x0007a0                  __U2RXInterrupt
-                  0x0007e6                  __U2ErrInterrupt
-                  0x0007fc                  _UART2_Read
-                  0x000832                  _UART2_ReadBuffer
-                  0x000866                  _UART2_Write
-                  0x00089c                  _UART2_WriteBuffer
-                  0x0008ce                  _UART2_TransferStatusGet
-                  0x00090a                  _UART2_Peek
-                  0x000932                  _UART2_ReceiveBufferSizeGet
-                  0x000960                  _UART2_TransmitBufferSizeGet
-                  0x000990                  _UART2_ReceiveBufferIsEmpty
-                  0x0009a8                  _UART2_TransmitBufferIsFull
-                  0x0009c0                  _UART2_StatusGet
- .text            0x0009c8        0x146 build/default/production/comtask.o
-                  0x0009c8                  _cout
-                  0x0009d6                  _com_out
-                  0x0009ea                  _com_task
- .text            0x000b0e         0xbe build/default/production/gprs.o
-                  0x000b0e                  _GprsBufClean
-                  0x000b30                  _gprs_task
-                  0x000b7c                  _sim_out
-                  0x000b8e                  _send_sms
- .text            0x000bcc         0xac build/default/production/mcc_generated_files/tmr1.o
-                  0x000bcc                  _TMR1_Initialize
-                  0x000be2                  __T1Interrupt
-                  0x000c0a                  _TMR1_Period16BitSet
-                  0x000c18                  _TMR1_Period16BitGet
-                  0x000c20                  _TMR1_Counter16BitSet
-                  0x000c2e                  _TMR1_Counter16BitGet
-                  0x000c36                  _TMR1_CallBack
-                  0x000c3c                  _TMR1_Start
-                  0x000c48                  _TMR1_Stop
-                  0x000c52                  _TMR1_GetElapsedThenClear
-                  0x000c68                  _TMR1_SoftwareCounterGet
-                  0x000c70                  _TMR1_SoftwareCounterClear
- .text            0x000c78         0x9a build/default/production/mcc_generated_files/adc1.o
-                  0x000c78                  _ADC1_Initialize
-                  0x000c9c                  _ADC1_Start
-                  0x000ca4                  _ADC1_Stop
-                  0x000cac                  _ADC1_ConversionResultBufferGet
-                  0x000cde                  _ADC1_ConversionResultGet
-                  0x000ce6                  _ADC1_IsConversionComplete
-                  0x000cfe                  _ADC1_ChannelSelect
-                  0x000d0a                  _ADC1_Tasks
- .text            0x000d12         0x7e build/default/production/mcc_generated_files/pin_manager.o
-                  0x000d12                  _PIN_MANAGER_Initialize
- .text            0x000d90         0x5a build/default/production/hardware.o
-                  0x000d90                  _delayms
-                  0x000da8                  _hardware_init
-                  0x000db0                  _blinkled
- .text            0x000dea         0x56 build/default/production/loop.o
-                  0x000dea                  _loop
- .text            0x000e40         0x4c build/default/production/mcc_generated_files/interrupt_manager.o
-                  0x000e40                  _INTERRUPT_Initialize
+.text             0x000510        0xbf8
+ .text            0x000510        0x2ce build/default/production/gprs.o
+                  0x000510                  _gprs_init
+                  0x00054a                  _GprsBufClean
+                  0x00056c                  _gprs_task
+                  0x0007a6                  _sim_out
+                  0x0007b8                  _send_sms
+ .text            0x0007de        0x2c8 build/default/production/mcc_generated_files/uart1.o
+                  0x0007de                  _UART1_Initialize
+                  0x000828                  __U1TXInterrupt
+                  0x00087e                  __U1RXInterrupt
+                  0x0008c4                  __U1ErrInterrupt
+                  0x0008da                  _UART1_Read
+                  0x000910                  _UART1_ReadBuffer
+                  0x000944                  _UART1_Write
+                  0x00097a                  _UART1_WriteBuffer
+                  0x0009ac                  _UART1_TransferStatusGet
+                  0x0009e8                  _UART1_Peek
+                  0x000a10                  _UART1_ReceiveBufferSizeGet
+                  0x000a3e                  _UART1_TransmitBufferSizeGet
+                  0x000a6e                  _UART1_ReceiveBufferIsEmpty
+                  0x000a86                  _UART1_TransmitBufferIsFull
+                  0x000a9e                  _UART1_StatusGet
+ .text            0x000aa6        0x2c8 build/default/production/mcc_generated_files/uart2.o
+                  0x000aa6                  _UART2_Initialize
+                  0x000af0                  __U2TXInterrupt
+                  0x000b46                  __U2RXInterrupt
+                  0x000b8c                  __U2ErrInterrupt
+                  0x000ba2                  _UART2_Read
+                  0x000bd8                  _UART2_ReadBuffer
+                  0x000c0c                  _UART2_Write
+                  0x000c42                  _UART2_WriteBuffer
+                  0x000c74                  _UART2_TransferStatusGet
+                  0x000cb0                  _UART2_Peek
+                  0x000cd8                  _UART2_ReceiveBufferSizeGet
+                  0x000d06                  _UART2_TransmitBufferSizeGet
+                  0x000d36                  _UART2_ReceiveBufferIsEmpty
+                  0x000d4e                  _UART2_TransmitBufferIsFull
+                  0x000d66                  _UART2_StatusGet
+ .text            0x000d6e        0x126 build/default/production/comtask.o
+                  0x000d6e                  _cout
+                  0x000d7c                  _com_out
+                  0x000d90                  _com_task
+ .text            0x000e94         0xac build/default/production/mcc_generated_files/tmr1.o
+                  0x000e94                  _TMR1_Initialize
+                  0x000eaa                  __T1Interrupt
+                  0x000ed2                  _TMR1_Period16BitSet
+                  0x000ee0                  _TMR1_Period16BitGet
+                  0x000ee8                  _TMR1_Counter16BitSet
+                  0x000ef6                  _TMR1_Counter16BitGet
+                  0x000efe                  _TMR1_CallBack
+                  0x000f04                  _TMR1_Start
+                  0x000f10                  _TMR1_Stop
+                  0x000f1a                  _TMR1_GetElapsedThenClear
+                  0x000f30                  _TMR1_SoftwareCounterGet
+                  0x000f38                  _TMR1_SoftwareCounterClear
+ .text            0x000f40         0x9a build/default/production/mcc_generated_files/adc1.o
+                  0x000f40                  _ADC1_Initialize
+                  0x000f64                  _ADC1_Start
+                  0x000f6c                  _ADC1_Stop
+                  0x000f74                  _ADC1_ConversionResultBufferGet
+                  0x000fa6                  _ADC1_ConversionResultGet
+                  0x000fae                  _ADC1_IsConversionComplete
+                  0x000fc6                  _ADC1_ChannelSelect
+                  0x000fd2                  _ADC1_Tasks
+ .text            0x000fda         0x7e build/default/production/mcc_generated_files/pin_manager.o
+                  0x000fda                  _PIN_MANAGER_Initialize
+ .text            0x001058         0x58 build/default/production/hardware.o
+                  0x001058                  _delayms
+                  0x001070                  _hardware_init
+                  0x001076                  _blinkled
+ .text            0x0010b0         0x58 build/default/production/loop.o
+                  0x0010b0                  _loop
 
-.dinit            0x000e8c         0x46
- .dinit           0x000e8c         0x46 data_init
+.dinit            0x001108         0x50
+ .dinit           0x001108         0x50 data_init
 
-.text             0x000ed2         0x78
- .text            0x000ed2         0x38 build/default/production/mcc_generated_files/traps.o
-                  0x000ed2                  _TRAPS_halt_on_error
-                  0x000ee8                  __OscillatorFail
-                  0x000ef0                  __StackError
-                  0x000efa                  __AddressError
-                  0x000f02                  __MathError
- .text            0x000f0a         0x38 build/default/production/mcc_generated_files/mcc.o
-                  0x000f0a                  _SYSTEM_Initialize
-                  0x000f1e                  _OSCILLATOR_Initialize
- .text            0x000f42          0x8 build/default/production/main.o
-                  0x000f42                  _main
+.text             0x001158         0xc4
+ .text            0x001158         0x4c build/default/production/mcc_generated_files/interrupt_manager.o
+                  0x001158                  _INTERRUPT_Initialize
+ .text            0x0011a4         0x38 build/default/production/mcc_generated_files/traps.o
+                  0x0011a4                  _TRAPS_halt_on_error
+                  0x0011ba                  __OscillatorFail
+                  0x0011c2                  __StackError
+                  0x0011cc                  __AddressError
+                  0x0011d4                  __MathError
+ .text            0x0011dc         0x38 build/default/production/mcc_generated_files/mcc.o
+                  0x0011dc                  _SYSTEM_Initialize
+                  0x0011f0                  _OSCILLATOR_Initialize
+ .text            0x001214          0x8 build/default/production/main.o
+                  0x001214                  _main

@@ -39,13 +39,11 @@ void com_task(void){
         else if(strcmp(ComBuf,"system")==0) {com_event = COM_SENSOR;com_out("system calib\r\n");}
         else if(strcmp(ComBuf,"gprs")==0) {com_event = COM_TEST_GPRS;com_out("check gprs\r\n");}
         else if(strcmp(ComBuf,"normal")==0) {com_event = COM_NORMAL;com_out("return to normal\r\n");}
-        else if(strcmp(ComBuf,"sms")==0)send_sms("+84903165302","test");
+        else if(strcmp(ComBuf,"sms")==0)send_sms("0903165302","sms finish");
         else{
             switch (com_event){
                 case COM_NORMAL: 
                     if(strcmp(ComBuf,"what")==0) com_out("yeah");
-                    else if(strcmp(ComBuf,"a2 ten gi?")==0) com_out(" Vien Bach");
-                    else if(strcmp(ComBuf,"em ten gi?")==0) com_out(" Que Lam");
                     else  com_out(ComBuf); 
                     break;
                 case COM_SENSOR: 
