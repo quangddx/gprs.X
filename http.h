@@ -28,15 +28,12 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef COMTASK_H
-#define	COMTASK_H
+#ifndef HTTP_H
+#define	HTTP_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
 #include "hardware.h"
-#include "string.h"
 #include "gprs.h"
-#include "mcc_generated_files/mcc.h"
-#include "http.h"
 // TODO Insert appropriate #include <>
 
 // TODO Insert C++ class definitions if appropriate
@@ -67,33 +64,47 @@
 // TODO Insert declarations or function prototypes (right here) to leverage 
 // live documentation
 
-
 #ifdef	__cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
     // TODO If C++ is being used, regular C code needs function names to have C 
     // linkage so the functions can be used by the c code. 
-typedef enum
-{
-	/* Application's state machine's initial state. */
-	COM_NORMAL=0,
-	COM_TEST_GPRS,
-    COM_SENSOR,        
-    COM_SYSTEM,
-	/* TODO: Define states used by the application state machine. */
+    
+typedef enum  {
+  SUCCESS = 0,
+          ERROR_REGISTRATION_STATUS = 20,
+  ERROR_INITIALIZATION = 1,
+  ERROR_BEARER_PROFILE_GPRS = 2,
+  ERROR_BEARER_PROFILE_APN = 3,
+  ERROR_OPEN_GPRS_CONTEXT = 4,
+  ERROR_QUERY_GPRS_CONTEXT = 5,
+  ERROR_CLOSE_GPRS_CONTEXT = 6,
+  ERROR_HTTP_INIT = 7,
+  ERROR_HTTP_CID = 8,
+  ERROR_HTTP_PARA = 9,
+  ERROR_HTTP_GET = 10,
+  ERROR_HTTP_READ = 11,
+  ERROR_HTTP_CLOSE = 12,
+  ERROR_HTTP_POST = 13,
+  ERROR_HTTP_DATA = 14,
+  ERROR_HTTP_CONTENT = 15,
+  ERROR_NORMAL_MODE = 16,
+  ERROR_LOW_CONSUMPTION_MODE = 17,
+  ERROR_HTTPS_ENABLE = 18,
+  ERROR_HTTPS_DISABLE = 19
+}Result;
+Result configureBearer(const char *apn);
+Result connect();
+Result disconnect();
+Result post(const char *uri, const char *body, char *response);
+Result setHTTPSession(const char *uri);
+void readResponse(char *response);
+void parseJSONResponse(const char *buffer, unsigned int bufferSize, char *response);
 
-} COM_STATES;
-
-void com_task(void);
-void cout(char c);
-void com_out(char *st);
-char com_in(char *st);
-void test_http();
-void print_error(int res);
 #ifdef	__cplusplus
 }
 #endif /* __cplusplus */
 
-#endif	/* XC_HEADER_TEMPLATE_H */
+#endif	/* HTTP_H */
 

@@ -9,7 +9,7 @@ void delayms(int t){
 }
 
 void hardware_init(void){
-    LDO = 0;
+    
 }
 void blinkled(void){
     if ((time+999)<TMR1_SoftwareCounterGet()||(time>TMR1_SoftwareCounterGet())){

@@ -39,13 +39,12 @@ void com_task(void){
         else if(strcmp(ComBuf,"system")==0) {com_event = COM_SENSOR;com_out("system calib\r\n");}
         else if(strcmp(ComBuf,"gprs")==0) {com_event = COM_TEST_GPRS;com_out("check gprs\r\n");}
         else if(strcmp(ComBuf,"normal")==0) {com_event = COM_NORMAL;com_out("return to normal\r\n");}
-        else if(strcmp(ComBuf,"sms")==0)send_sms("+84903165302","test");
+        else if(strcmp(ComBuf,"post")==0) {test_http(); }
+        else if(strcmp(ComBuf,"sms")==0)send_sms("0903165302","sms finish");
         else{
             switch (com_event){
                 case COM_NORMAL: 
                     if(strcmp(ComBuf,"what")==0) com_out("yeah");
-                    else if(strcmp(ComBuf,"a2 ten gi?")==0) com_out(" Vien Bach");
-                    else if(strcmp(ComBuf,"em ten gi?")==0) com_out(" Que Lam");
                     else  com_out(ComBuf); 
                     break;
                 case COM_SENSOR: 
@@ -53,6 +52,7 @@ void com_task(void){
 
                 case COM_TEST_GPRS: 
                     sim_out(ComBuf);UART2_Write(0X0D);UART2_Write(0X0A);
+                    
                     break;
                 case COM_SYSTEM: 
                     break;
@@ -64,5 +64,37 @@ void com_task(void){
         int i;
         for(i=0;i<ComLen;i++) ComBuf[i]=0;
         ComLen = 0;
+    }
+}
+void print_error(int res)
+{
+    char error[80];
+    sprintf(error, "Result: %d", res);
+    com_out(error);
+}
+void test_http()
+{
+    com_out("begin\r\n");
+    
+    char response[32];
+    char body[90];
+    
+    Result result;
+  
+  
+    result = configureBearer("http://crmd.crazyteenshop.com");
+    print_error(result);
+    result = connect();
+    
+    
+    print_error(result);
+    
+    com_out("HTTP connect:\r\n");
+    
+    sprintf(body, "{\"name\": \"%s\"}", "Arduino");
+    result = post("http://crmd.crazyteenshop.com/api/v1/auth/login", body, response);
+    com_out("HTTP POST: ");
+    if (result == SUCCESS) {
+    
     }
 }
