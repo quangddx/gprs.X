@@ -37,6 +37,7 @@
 #include "gprs.h"
 #include "mcc_generated_files/mcc.h"
 #include "http.h"
+#include "sim800.h"
 // TODO Insert appropriate #include <>
 
 // TODO Insert C++ class definitions if appropriate

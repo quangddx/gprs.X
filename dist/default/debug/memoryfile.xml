@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/gprs.X.production.elf">
+  <executable name="dist/default/debug/gprs.X.debug.elf">
     <memory name="data">
       <units>bytes</units>
       <length>8192</length>
-      <used>1862</used>
-      <free>6330</free>
+      <used>954</used>
+      <free>7238</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>131316</length>
-      <used>13971</used>
-      <free>117345</free>
+      <used>12597</used>
+      <free>118719</free>
     </memory>
   </executable>
 </project>

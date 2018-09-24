@@ -1,8 +1,9 @@
 
 #include "comtask.h"
 
+
 bool DataReady = false;
-char ComBuf[99];
+char ComBuf[160];
 char ComLen=0;
 COM_STATES   com_event=0;
 void cout(char c){
@@ -40,7 +41,7 @@ void com_task(void){
         else if(strcmp(ComBuf,"gprs")==0) {com_event = COM_TEST_GPRS;com_out("check gprs\r\n");}
         else if(strcmp(ComBuf,"normal")==0) {com_event = COM_NORMAL;com_out("return to normal\r\n");}
         else if(strcmp(ComBuf,"post")==0) {test_http(); }
-        else if(strcmp(ComBuf,"sms")==0)send_sms("0903165302","sms finish");
+        else if(strcmp(ComBuf,"sms")==0)send_sms("0908586859","sms finish");
         else{
             switch (com_event){
                 case COM_NORMAL: 
@@ -74,27 +75,41 @@ void print_error(int res)
 }
 void test_http()
 {
-    com_out("begin\r\n");
+ /*   com_out("begin post http \r\n");
     
-    char response[32];
-    char body[90];
+    char response[64];
+    char body[160];
     
     Result result;
   
-  
-    result = configureBearer("http://crmd.crazyteenshop.com");
-    print_error(result);
+    configureBearer("navyone.xyz");
+ 
     result = connect();
+   
     
-    
-    print_error(result);
-    
-    com_out("HTTP connect:\r\n");
-    
-    sprintf(body, "{\"name\": \"%s\"}", "Arduino");
-    result = post("http://crmd.crazyteenshop.com/api/v1/auth/login", body, response);
-    com_out("HTTP POST: ");
-    if (result == SUCCESS) {
-    
-    }
+  //  if(result==SUCCESS)
+    {
+        com_out("HTTP post:\r\n");
+        sprintf(body, "{\"action\":\"embedded\", \"handle\": \"add\", \"data\":{ \"name\": \"Temp\", \"val\": 32, \"created_at\": \"20\"}}");
+        com_out(body);
+        com_out("{\"action\":\"embedded\", \"handle\": \"add\", \"data\":{ \"name\": \"Temperature\", \"val\": 32, \"created_at\": \"2018-09-19 10:00:00\"}}");
+        result = post("http://navyone.xyz/api/v1", body, response);
+        com_out("HTTP POST: ");
+        if (result == SUCCESS) {
+            com_out(response);
+        }
+    }   
+    */
+//    com_out("begin post http \r\n");
+//    
+//    
+//    if(configGprs("navyone.xyz")==false) com_out("Error configGprs");
+//    openBearer();
+//    closeBearer();
+httpInit();
+//    setURL("http://navyone.xyz/api/v1");
+//    setContent("{\"action\":\"embedded\", \"handle\": \"add\", \"data\":{ \"name\": \"Temperature\", \"val\": 32, \"created_at\": \"2018-09-19 10:00:00\"}}", 
+//            "application/json");
+//    httpPost();
+    executeCommand("AT+CIPSTART=\"TCP\",\"navyone.xyz\",80", "OK", 2000);
 }

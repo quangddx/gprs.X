@@ -21,6 +21,7 @@
       <itemPath>loop.h</itemPath>
       <itemPath>comtask.h</itemPath>
       <itemPath>http.h</itemPath>
+      <itemPath>sim800.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -47,6 +48,7 @@
       <itemPath>loop.c</itemPath>
       <itemPath>comtask.c</itemPath>
       <itemPath>http.c</itemPath>
+      <itemPath>sim800.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

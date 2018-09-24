@@ -5,14 +5,14 @@
 
 //
 bool DataGprs = false;
-char GprsBuf[128];
+char GprsBuf[1024];
 char GprsLen = 0;
 int gTime = 0;
 int gTick = 0;
 GPRS_STATES GprsEvent=1;
 static bool gOK = false;
 static bool gERROR = false;
-char *gCommand[20];
+char *gCommand[64];
 static int gI = 0;
 bool debug = true;
 void gprs_init(){
@@ -23,7 +23,8 @@ void gprs_init(){
     gCommand[4]="AT+CMGF=1\r\n";
     gCommand[5]="AT+CIPHEAD=1\r\n";
     gCommand[6]="AT+CIPSRIP=1\r\n";
-    gCommand[7]="AT+CSTT=\"m_wap\",\"mms\",\"mms\"\r\n";
+//    gCommand[7]="AT+CSTT=\"m_wap\",\"mms\",\"mms\"\r\n";
+    gCommand[7]="AT+CSTT=\"\",\"\",\"\"\r\n";
     gCommand[10]="AT+CIICR\r\n";
     gCommand[11]="AT+CIFSR\r\n";
     gCommand[12]="AT+CIPSTART=\r\n";
@@ -40,12 +41,14 @@ bool gprs_status(const char* st){
     bool status;
     status = false;
     if(DataGprs){
-        if(strcmp(GprsBuf,st)==0) status = true;  
+        if(strcmp(GprsBuf, st)==0) status = true;  
         GprsBufClean();        
     }
     return(status);
 }
-
+bool serial_status(){
+    return gOK;
+}
 bool read_gprs_buf(char* buf){
     bool status = false;
     if(DataGprs){
@@ -62,9 +65,17 @@ void gprs_task(void){
     if(!UART2_ReceiveBufferIsEmpty()){
         c=UART2_Read();
         cout(c);
-        if(((c==0x0A)||(c==0x0D))&&GprsLen) DataGprs = true;   
-        else if((c>31)&&(c<127)){GprsBuf[GprsLen++]=c;}
+        if(((c==0x0A)||(c==0x0D))&& GprsLen) DataGprs = true;   
+        else if((c>31)&&(c<127))
+        {
+            GprsBuf[GprsLen++]=c;
+        }
     }    
+  /*  if(DataGprs){  
+        if(strcmp(GprsBuf,"OK")==0) gOK = true;  
+        else if(strcmp(GprsBuf,"ERROR")==0) gERROR = true;  
+        GprsBufClean(); 
+    }*/
     switch(GprsEvent){
         case GPRS_OFF:
             
@@ -78,36 +89,52 @@ void gprs_task(void){
         case GPRS_ON:
             LDO = 0;          
             if (((gTime+9999)<TMR1_SoftwareCounterGet())||(gTime>TMR1_SoftwareCounterGet())){
-                gTime = TMR1_SoftwareCounterGet();
-                gI = 0; gOK = 1;
-                GprsEvent = GPRS_INIT;
+                
+                gI = 0; 
+                GprsBufClean();                 
                 if(debug) com_out("gprs init\r\n");
+                
+                gTime = TMR1_SoftwareCounterGet();
+                sim_out(gCommand[gI]);
             }
+            if (gprs_status("OK")){
+                GprsEvent = GPRS_INIT;
+                delayms(20000);
+                sim_out(gCommand[gI]);
+            }    
             break;
         case GPRS_INIT:
-            if (gOK) {
-                gOK=false;
-                //if(debug) com_out(gCommand[gI]);
+            if (gprs_status("OK")) {
+   
+                if(debug) com_out(gCommand[gI]);
                 sim_out(gCommand[gI++]);                
                 gTime = TMR1_SoftwareCounterGet();
             }
 
             if(gI>7) {               
                 if(debug) com_out("ready to online\r\n");
-                gOK=0; sim_out("AT+CIICR\r\n");                
+                //gOK=false;
+                //GprsBufClean();  
+                
+                sim_out("AT+CIICR\r\n");                
                 gTime = TMR1_SoftwareCounterGet();
-                GprsEvent = GPRS_3G;break;
+                GprsEvent = GPRS_3G;
+                //GprsEvent = GPRS_SERVICE;
+                break;
             }
-            if (((gTime+999)<TMR1_SoftwareCounterGet())||(gTime>TMR1_SoftwareCounterGet())){
+            if (((gTime+9999)<TMR1_SoftwareCounterGet())||(gTime>TMR1_SoftwareCounterGet())){
                 gTime = TMR1_SoftwareCounterGet();
                 GprsEvent = GPRS_OFF;
                 //com_out("wait\r\n");
             }           
             break;
         case GPRS_3G:
-            if(gOK){               
+            if(gprs_status("OK")){               
                 if(debug) com_out("get ip\r\n");
-                gOK=0; sim_out("AT+CIFSR\r\n");
+                //gOK=false;
+                //GprsBufClean();  
+                
+                sim_out("AT+CIFSR\r\n");
                 gTime = TMR1_SoftwareCounterGet();
                 gTick=0;GprsEvent = GPRS_GET_IP;break;
             }
@@ -126,12 +153,13 @@ void gprs_task(void){
             if(DataGprs){
                 //if(debug) com_out("online success\r\n");
                 //my ip in GprsBuf
-                if ((GprsBuf[0]<0x3A)&&((GprsBuf[0]>0x2F))) {
+                if ((GprsBuf[0]<0x3B)&&((GprsBuf[0]>0x2E))) {
                     if(debug) com_out("online success\r\n");
                     GprsBufClean();
                     gTime = TMR1_SoftwareCounterGet();
                     GprsEvent = GPRS_SERVICE;break;
                 }
+                GprsBufClean();
             }
             if (((gTime+1999)<TMR1_SoftwareCounterGet())||(gTime>TMR1_SoftwareCounterGet())){
                 gTime = TMR1_SoftwareCounterGet();
@@ -149,18 +177,17 @@ void gprs_task(void){
             break;
         
     }
-    if(DataGprs){  
-        if(strcmp(GprsBuf,"OK")==0) gOK = true;  
-        else if(strcmp(GprsBuf,"ERROR")==0) gERROR = true;  
-        GprsBufClean(); 
-    }   
+   
 }
 void sim_out(char *st){
-    UART2_WriteBuffer(st,strlen(st));
+    UART2_WriteBuffer(st, strlen(st));
 }
 void send_sms(char *number, char *data){
     //char st[200];
     //sprintf(st,"AT+CMGS="%s, \r\n"); 
+    
+    com_out("begin send sms \r\n");
+    
     sim_out("AT+CMGS=\"");
     //UART2_Write(0x22);
     //sim_out("0903165302");

@@ -112,6 +112,7 @@ Result connect() {
       result = SUCCESS;
     }
   }
+  
 
   if (sendCmdAndWaitForResp(HTTP_INIT, OK, 2000) == false)
     result = ERROR_HTTP_INIT;
@@ -132,10 +133,10 @@ Result disconnect() {
 }
 
 Result post(const char *uri, const char *body, char *response) {
-
+    
   Result result = setHTTPSession(uri);
 
-  char httpData[32];
+  char httpData[160];
   unsigned int delayToDownload = 10000;
   sprintf(httpData, HTTP_DATA, strlen(body), 10000);
   if (sendCmdAndWaitForResp(httpData, DOWNLOAD, 2000) == false){

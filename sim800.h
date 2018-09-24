@@ -28,18 +28,12 @@
 
 // This is a guard condition so that contents of this file are not included
 // more than once.  
-#ifndef LOOP_H
-#define	LOOP_H
+#ifndef XC_HEADER_TEMPLATE_H
+#define	XC_HEADER_TEMPLATE_H
 
 #include <xc.h> // include processor files - each processor file is guarded.  
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "mcc_generated_files/mcc.h"
 #include "hardware.h"
-#include "comtask.h"
 #include "gprs.h"
-//#include "../sensor/salinity.h"
 // TODO Insert appropriate #include <>
 
 // TODO Insert C++ class definitions if appropriate
@@ -73,10 +67,18 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif /* __cplusplus */
-
-    // TODO If C++ is being used, regular C code needs function names to have C 
-    // linkage so the functions can be used by the c code. 
-void loop(void);
+bool executeCommand(const char* comm, const char* status, int response_time);
+bool  configGprs(const char* apn);
+bool  openBearer();
+   bool  closeBearer();
+   bool  httpInit();
+   bool  httpTerminate();
+   bool  setURL(const char* url);
+   bool  setContent(const char* body, const char* contentType);
+   bool  httpPost();
+   const char*  httpGet();     
+ const char* getResponse();  
+   
 #ifdef	__cplusplus
 }
 #endif /* __cplusplus */
